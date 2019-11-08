@@ -1,0 +1,1 @@
+This is the the beginning of the odin etch-a-sketch project found at (https://www.theodinproject.com/courses/web-development-101/lessons/etch-a-sketch-project?ref=lnav)
