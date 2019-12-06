@@ -6,6 +6,18 @@ let blackLine = true;
 
 colorBtn.addEventListener('click', switchToColor);
 
+// Reset board logic and prompt for future board number
+btn.addEventListener('click', function () {
+    let tiles = document.querySelector('.tileDiv');
+    tiles.remove();
+    createTileDiv();
+    do {
+        var numOfSquares = parseInt(prompt("How large would you like your Etch-a-Sketch? (squares per side)", ""), 10);
+    } while (isNaN(numOfSquares) || numOfSquares > 100 || numOfSquares < 1);
+    createGrid(numOfSquares);
+});
+
+//Logic to switch from colored lines back to black and white
 function switchToColor() {
     if (colorLine != true) {
         colorBtn.innerHTML = 'Turn Off Colored Line';
@@ -16,7 +28,15 @@ function switchToColor() {
         colorLine = false;
         blackLine = true;
     }
-}
+};
+
+//Random color generator for the colored line option
+function randomColor() {
+    let r = Math.floor(Math.random() * 256);
+    let b = Math.floor(Math.random() * 256);
+    let g = Math.floor(Math.random() * 256);
+    return bgColor = "rgb(" + r + "," + b + "," + g + ")";
+};
 
 // Tile div was created as a functional way to later remove all div elements inside it and still preserve the playing board
 function createTileDiv() {
@@ -25,13 +45,6 @@ function createTileDiv() {
     container.appendChild(tileDiv);
 }
 createTileDiv();
-
-function randomColor() {
-    let r = Math.floor(Math.random() * 256);
-    let b = Math.floor(Math.random() * 256);
-    let g = Math.floor(Math.random() * 256);
-    return bgColor = "rgb(" + r + "," + b + "," + g + ")";
-};
 
 // Individual tile creation and onload board setup
 function createGrid(gridSize) {
@@ -46,7 +59,6 @@ function createGrid(gridSize) {
             tileDiv.appendChild(newTileDiv);
             newTileDiv.addEventListener('mouseenter', function () {
                 let opacity = this.style.opacity;
-                // this.style.background = randomColor();
                 if (blackLine === true) {
                     const opacity = Number(this.style.opacity);
                     this.style.backgroundColor = 'black';
@@ -63,14 +75,3 @@ function createGrid(gridSize) {
     }
 }
 createGrid(16);
-
-// Reset board logic and prompt for future board number
-btn.addEventListener('click', function () {
-    let tiles = document.querySelector('.tileDiv');
-    tiles.remove();
-    createTileDiv();
-    do {
-        var numOfSquares = parseInt(prompt("How large would you like your Etch-a-Sketch? (squares per side)", ""), 10);
-    } while (isNaN(numOfSquares) || numOfSquares > 100 || numOfSquares < 1);
-    createGrid(numOfSquares);
-});
